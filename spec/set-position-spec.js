@@ -182,4 +182,22 @@ describe(`Explicitly Setting Position (webpack ${version.webpack})`, () => {
     ];
     testPlugin(config, expected, done);
   });
+
+  it('positions correctly at top of the html', done => {
+    const config = baseConfig('one_stylesheet', null, null, 'absolute-top');
+    const expected = baseExpectations();
+    expected.html = [
+      /<style>[\s\S]*background: snow;[\s\S]*<\/style><!DOCTYPE html>/
+    ];
+    testPlugin(config, expected, done);
+  });
+
+  it('positions correctly at bottom of the html', done => {
+    const config = baseConfig('one_stylesheet', null, null, 'absolute-bottom');
+    const expected = baseExpectations();
+    expected.html = [
+      /<\/html><style>[\s\S]*background: snow;[\s\S]*<\/style>/
+    ];
+    testPlugin(config, expected, done);
+  });
 });
