@@ -113,7 +113,10 @@ For more control, you can use an extended, hash version of the configuration. Th
 - `enabled`: [`true|false`] - for switching the plugin on and off (default: `true`);
 - `file`: the css filename - previously, the single `String` argument (default: `undefined` - uses the first css file found in the compilation);
 - `chunks`: which chunks the plugin scans for the css file - see the next Use Case: Multiple HTML files for usage (default: `undefined` - scans all chunks);
-- `position`: [`head-top`|`head-bottom`|`body-top`|`body-bottom`|`plugin`] - all (hopefully) self-explanatory except `plugin`, which means defer to html-webpack-plugin's `inject` option (default: `plugin`);
+- `position`: [`absolute-top`|`absolute-bottom`|`head-top`|`head-bottom`|`body-top`|`body-bottom`|`plugin`] 
+  - `absolute-top` & `absolute-bottom` - inject the `<style>` at the top or bottom of the html block (html structure ignored) and remove the `<head>` tag;
+  - `plugin` - defer to html-webpack-plugin's `inject` option (default: `plugin`);
+  - the rest (hopefully) self-explanatory;
 - `minify`: see next section
 - `cssRegExp`:  A regular expression that indicates the css filename (default: /\.css$/);
 
