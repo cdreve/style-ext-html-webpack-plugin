@@ -183,7 +183,7 @@ describe(`Explicitly Setting Position (webpack ${version.webpack})`, () => {
     testPlugin(config, expected, done);
   });
 
-  it('positions correctly at top of the html', done => {
+  it('positions correctly at the top of the html block', done => {
     const config = baseConfig('one_stylesheet', null, null, 'absolute-top');
     const expected = baseExpectations();
     expected.html = [
@@ -192,11 +192,47 @@ describe(`Explicitly Setting Position (webpack ${version.webpack})`, () => {
     testPlugin(config, expected, done);
   });
 
-  it('positions correctly at bottom of the html', done => {
+  it('positions correctly multiple stylesheets from a single source at the top of the html block', done => {
+    const config = baseConfig('two_stylesheets', 'styles.css', ['css-loader', 'postcss-loader'], 'absolute-top');
+    const expected = baseExpectations();
+    expected.html = [
+      /<style>[\s\S]*background: snow;[\s\S]*color: gray;[\s\S]*<\/style><!DOCTYPE html>/
+    ];
+    testPlugin(config, expected, done);
+  });
+
+  it('positions correctly multiple stylesheets from multiple sources at the top of the html block', done => {
+    const config = baseConfig('nested_stylesheets', 'styles.css', ['css-loader', 'postcss-loader'], 'absolute-top');
+    const expected = baseExpectations();
+    expected.html = [
+      /<style>[\s\S]*background: snow;[\s\S]*color: gray;[\s\S]*<\/style><!DOCTYPE html>/
+    ];
+    testPlugin(config, expected, done);
+  });
+
+  it('positions correctly at the bottom of the html block', done => {
     const config = baseConfig('one_stylesheet', null, null, 'absolute-bottom');
     const expected = baseExpectations();
     expected.html = [
       /<\/html><style>[\s\S]*background: snow;[\s\S]*<\/style>/
+    ];
+    testPlugin(config, expected, done);
+  });
+
+  it('positions correctly multiple stylesheets from a single source at the bottom of the html block', done => {
+    const config = baseConfig('two_stylesheets', 'styles.css', ['css-loader', 'postcss-loader'], 'absolute-bottom');
+    const expected = baseExpectations();
+    expected.html = [
+      /<\/html><style>[\s\S]*background: snow;[\s\S]*color: gray;[\s\S]*<\/style>/
+    ];
+    testPlugin(config, expected, done);
+  });
+
+  it('positions correctly multiple stylesheets from multiple sources at the bottom of the html block', done => {
+    const config = baseConfig('nested_stylesheets', 'styles.css', ['css-loader', 'postcss-loader'], 'absolute-bottom');
+    const expected = baseExpectations();
+    expected.html = [
+      /<\/html><style>[\s\S]*background: snow;[\s\S]*color: gray;[\s\S]*<\/style>/
     ];
     testPlugin(config, expected, done);
   });
